@@ -8,7 +8,6 @@
 
     <ion-content class="ion-padding">
 
-      <!-- INPUT -->
       <ion-input
         v-model="novaTarefa"
         placeholder="Digite uma tarefa"
@@ -34,7 +33,6 @@
 
       </ion-list>
 
-      <!-- ESTADO VAZIO -->
       <p v-if="tarefas.length === 0">
         Nenhuma tarefa cadastrada. Adicione a primeira!
       </p>
