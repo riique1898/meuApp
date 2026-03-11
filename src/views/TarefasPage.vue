@@ -3,6 +3,9 @@
     <ion-header :translucent="true">
       <ion-toolbar>
         <ion-title>Tarefas</ion-title>
+        <ion-button @click="router.push('/home')">
+          Ir para tarefas
+        </ion-button>
       </ion-toolbar>
     </ion-header>
 
@@ -56,6 +59,7 @@ import {
   IonItem,
   IonLabel
 } from '@ionic/vue'
+import router from '@/router'
 
 const novaTarefa = ref('')
 const tarefas = ref<string[]>([])
