@@ -1,18 +1,35 @@
-<script setup lang="ts">
-import {
-  IonCard,
-  IonCardContent,
-  IonItem,
-  IonIcon,
-  IonLabel,
-  IonButton
-} from '@ionic/vue'
+<template>
+  <ion-card>
+    <ion-card-content>
+      <ion-item lines="none">
  
-import {
-  checkmarkCircle,
-  ellipseOutline,
-  trashOutline
-} from 'ionicons/icons'
+        <ion-icon
+          slot="start"
+          :icon="tarefa.feita ? checkmarkCircle : ellipseOutline"
+          :color="tarefa.feita ? 'success' : 'medium'"
+          @click="$emit('concluir', tarefa.id)"
+        />
+ 
+        <ion-label :class="{ feita: tarefa.feita }">
+          {{ tarefa.texto }}
+        </ion-label>
+ 
+        <ion-button
+          slot="end"
+          fill="clear"
+          color="danger"
+          @click="$emit('remover', tarefa.id)"
+        >
+          <ion-icon :icon="trashOutline" />
+        </ion-button>
+ 
+      </ion-item>
+    </ion-card-content>
+  </ion-card>
+</template>
+ 
+<script setup lang="ts">
+import { checkmarkCircle, ellipseOutline, trashOutline } from 'ionicons/icons'
  
 interface Tarefa {
   id: number
@@ -20,42 +37,13 @@ interface Tarefa {
   feita: boolean
 }
  
-const props = defineProps<{ tarefa: Tarefa }>()
- 
-const emit = defineEmits<{
-  remover: [id: number]
-  concluir: [id: number]
-}>()
+defineProps<{ tarefa: Tarefa }>()
+defineEmits(['remover', 'concluir'])
 </script>
  
-<template>
-  <IonCard>
-    <IonCardContent>
-      <IonItem lines="none">
-       
-        <IonIcon
-          slot="start"
-          :icon="props.tarefa.feita ? checkmarkCircle : ellipseOutline"
-          :color="props.tarefa.feita ? 'success' : 'medium'"
-          @click="emit('concluir', props.tarefa.id)"
-        />
- 
-        <IonLabel
-          :style="props.tarefa.feita ? 'text-decoration: line-through' : ''"
-        >
-          {{ props.tarefa.texto }}
-        </IonLabel>
- 
-        <IonButton
-          slot="end"
-          fill="clear"
-          color="danger"
-          @click="emit('remover', props.tarefa.id)"
-        >
-          <IonIcon :icon="trashOutline" />
-        </IonButton>
- 
-      </IonItem>
-    </IonCardContent>
-  </IonCard>
-</template>
+<style scoped>
+.feita {
+  text-decoration: line-through;
+  opacity: 0.6;
+}
+</style>
