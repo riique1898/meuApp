@@ -56,4 +56,3 @@ import router from '@/router';
   text-decoration: none;
 }
 </style>
- 
